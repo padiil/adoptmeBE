@@ -30,6 +30,10 @@ app.use(
   swaggerUi.setup(swaggerDocument)
 );
 
+app.get("/", (req, res) => {
+  res.redirect("/api-docs");
+});
+
 app.use(APIAuth);
 route(app);
 
