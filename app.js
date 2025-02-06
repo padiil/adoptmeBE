@@ -22,6 +22,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Dokumentasi API
+const CSS_URL =
+  "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css";
 const swaggerDocument = YAML.load(path.join(__dirname, "docs/openapi.yml"));
 app.use(
   "/api-docs/openapi.yml",
@@ -35,6 +37,7 @@ app.use(
     swaggerOptions: {
       url: "/api-docs/openapi.yml",
     },
+    customCssUrl: CSS_URL,
   })
 );
 
