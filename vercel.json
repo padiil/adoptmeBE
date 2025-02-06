@@ -12,34 +12,10 @@
       }
     }
   ],
-  "rewrites": [
+  "routes": [
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/api-docs/:path*",
-      "destination": "/api-docs/:path*"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/api-docs/swagger-ui-bundle.js",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "application/javascript"
-        }
-      ]
-    },
-    {
-      "source": "/api-docs/swagger-ui.css",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "text/css"
-        }
-      ]
+      "src": "/(.*)",
+      "dest": "app.js"
     }
   ]
 }
