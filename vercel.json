@@ -12,14 +12,14 @@
       }
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/(.*)",
-      "dest": "app.js"
+      "source": "/(.*)",
+      "destination": "/index.html"
     },
     {
-      "src": "/api-docs/:path*",
-      "dest": "/api-docs/:path*"
+      "source": "/api-docs/:path*",
+      "destination": "/api-docs/:path*"
     }
   ],
   "headers": [
