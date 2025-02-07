@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export const getAnimals = async (req, res) => {
+export const getpets = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = 10;
   const speciesFilter = req.query.species || null;
@@ -44,21 +44,21 @@ export const getAnimals = async (req, res) => {
 
     // link untuk pagination
     const links = {
-      first: `/api/animals?page=1${
+      first: `/api/pets?page=1${
         speciesFilter ? `&species=${speciesFilter}` : ""
       }`,
-      last: `/api/animals?page=${totalPages}${
+      last: `/api/pets?page=${totalPages}${
         speciesFilter ? `&species=${speciesFilter}` : ""
       }`,
       prev:
         page > 1
-          ? `/api/animals?page=${page - 1}${
+          ? `/api/pets?page=${page - 1}${
               speciesFilter ? `&species=${speciesFilter}` : ""
             }`
           : null,
       next:
         page < totalPages
-          ? `/api/animals?page=${page + 1}${
+          ? `/api/pets?page=${page + 1}${
               speciesFilter ? `&species=${speciesFilter}` : ""
             }`
           : null,

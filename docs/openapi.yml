@@ -11,13 +11,13 @@ servers:
   - url: https://adoptme-be.vercel.app/
   - url: http://localhost:3000
 tags:
-  - name: animals
+  - name: pets
     description: Operations about pets
 paths:
-  /api/animals:
+  /api/pets:
     get:
       tags:
-        - animals
+        - pets
       summary: Get catalog of pets
       description: Returns a list of pets with pagination and optional species filter.
       parameters:
@@ -95,17 +95,17 @@ paths:
                     properties:
                       first:
                         type: string
-                        example: "/api/animals?page=1"
+                        example: "/api/pets?page=1"
                       last:
                         type: string
-                        example: "/api/animals?page=10"
+                        example: "/api/pets?page=10"
                       prev:
                         type: string
                         nullable: true
                         example: null
                       next:
                         type: string
-                        example: "/api/animals?page=2"
+                        example: "/api/pets?page=2"
         "400":
           description: Invalid request parameters
           content:
@@ -136,10 +136,10 @@ paths:
                   error:
                     type: string
                     example: Internal server error
-  /api/animal/{id}:
+  /api/pet/{id}:
     get:
       tags:
-        - animals
+        - pets
       summary: Get pet by ID
       description: Returns a single pet by ID.
       parameters:
@@ -157,7 +157,7 @@ paths:
             type: integer
       responses:
         "200":
-          description: A specific animal
+          description: A specific pet
           content:
             application/json:
               schema:
@@ -228,7 +228,7 @@ paths:
                           type: string
                           example: "https://example.com/photo.jpg"
         "404":
-          description: Animal not found
+          description: pet not found
           content:
             application/json:
               schema:
@@ -236,7 +236,7 @@ paths:
                 properties:
                   error:
                     type: string
-                    example: Animal not found
+                    example: pet not found
         "500":
           description: Internal server error
           content:
