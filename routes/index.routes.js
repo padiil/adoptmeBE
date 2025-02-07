@@ -1,5 +1,5 @@
-import { getAnimals } from "../controllers/index.controllers.js";
+import { getpets } from "../controllers/index.controllers.js";
 
 export const route = (app) => {
-  app.get("/api/animals", getAnimals);
+  app.get("/api/pets", getpets);
 };
