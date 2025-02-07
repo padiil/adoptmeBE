@@ -15,7 +15,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 dotenv.config();
-app.use(helmet());
+// app.use(helmet());
 app.use(cors());
 
 const __filename = fileURLToPath(import.meta.url);
