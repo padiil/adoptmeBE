@@ -50,7 +50,7 @@ const options = {
       },
     ],
   },
-  apis: [path.join(__dirname, "docs/openapi.yml")],
+  apis: ["./routes/*.js"],
 };
 
 const specs = swaggerJSDoc(options);
