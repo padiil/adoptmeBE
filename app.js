@@ -24,17 +24,30 @@ const __dirname = path.dirname(__filename);
 // Dokumentasi API
 const swaggerDocument = YAML.load(path.join(__dirname, "docs/openapi.yml"));
 
-// Gunakan middleware express.static untuk serve openapi.yml
+// Serve Swagger UI static files
 app.use(
-  "/api-docs/openapi.yml",
-  express.static(path.join(__dirname, "docs/openapi.yml"))
+  "/api-docs/swagger-ui",
+  express.static(path.join(__dirname, "public/swagger-ui"))
 );
 
+// Serve openapi.yml dengan MIME type
+app.use("/api-docs/openapi.yml", (req, res) => {
+  res.setHeader("Content-Type", "application/x-yaml");
+  res.sendFile(path.join(__dirname, "docs/openapi.yml"));
+});
+
+// Setup Swagger UI
 app.use(
   "/api-docs",
   APIDocsAuth,
   swaggerUi.serve,
-  swaggerUi.setup(swaggerDocument)
+  swaggerUi.setup(swaggerDocument, {
+    swaggerOptions: {
+      swaggerUiBundleUrl: "/api-docs/swagger-ui/swagger-ui-bundle.js",
+      swaggerUiStandalonePresetUrl:
+        "/api-docs/swagger-ui/swagger-ui-standalone-preset.js",
+    },
+  })
 );
 
 app.get("/", (req, res) => {
