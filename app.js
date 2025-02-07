@@ -37,7 +37,7 @@ app.use(
 );
 
 app.get("/", (req, res) => {
-  res.json({ message: "Hello World!" });
+  res.redirect("/api-docs");
 });
 
 app.use(APIAuth);
