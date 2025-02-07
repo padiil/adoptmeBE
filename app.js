@@ -15,7 +15,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 dotenv.config();
-// app.use(helmet());
+app.use(helmet());
 app.use(cors());
 
 const __filename = fileURLToPath(import.meta.url);
@@ -31,7 +31,6 @@ const options = {
         "This AdoptMe API documentation is a comprehensive guide designed to bridge the gap between frontend and backend teams. With clear and structured documentation, team members can easily understand how to interact with the API and build exciting features for our pet adoption platform.",
       contact: {
         name: "Fadhil Gani",
-        // url: "https://logrocket.com",
         email: "fadhilgani2@gmail.com",
       },
     },
@@ -43,26 +42,32 @@ const options = {
         url: "http://localhost:3000",
       },
     ],
-    tags: [
-      {
-        name: "animals",
-        description: "Everything about pets",
-      },
-    ],
   },
-  apis: ["./routes/*.js"],
+  apis: [path.join(__dirname, "routes/*.js")],
 };
 
 const specs = swaggerJSDoc(options);
 
-app.get("/", (req, res) => {
-  res.redirect("/api-docs");
-});
+// Serve the Swagger documentation at /api-docs
 app.use("/api-docs", APIDocsAuth, swaggerUi.serve, swaggerUi.setup(specs));
 
+// Serve Swagger UI static files
+app.use(
+  "/swagger-ui",
+  express.static(path.join(__dirname, "node_modules/swagger-ui-dist"))
+);
+
+// Apply APIAuth middleware to all other routes
 app.use(APIAuth);
+
+// Define your routes
 route(app);
 
+app.get("/", (req, res) => {
+  res.json({ message: "Hello World!" });
+});
+
+// Handle 404 errors
 app.use((req, res, next) => {
   res.status(404).json({ error: "Not Found" });
 });

@@ -13,12 +13,12 @@
   ],
   "routes": [
     {
-      "src": "/api-docs/openapi.yml",
-      "dest": "/docs/openapi.yml"
+      "src": "/api-docs/(.*)",
+      "dest": "/app.js"
     },
     {
       "src": "/(.*)",
-      "dest": "app.js"
+      "dest": "/app.js"
     }
   ]
 }
