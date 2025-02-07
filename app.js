@@ -3,9 +3,9 @@ import cors from "cors";
 import helmet from "helmet";
 import dotenv from "dotenv";
 import swaggerUi from "swagger-ui-express";
-import YAML from "yamljs";
 import path from "path";
 import { fileURLToPath } from "url";
+import swaggerJSDoc from "swagger-jsdoc";
 
 import { route } from "./routes/index.routes.js";
 import APIAuth from "./middlewares/APIAuth.middleware.js";
@@ -21,26 +21,44 @@ app.use(cors());
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Dokumentasi API
-const swaggerDocument = YAML.load(path.join(__dirname, "docs/openapi.yml"));
-app.use("/api-docs/openapi.yml", (req, res) => {
-  res.setHeader("Content-Type", "application/x-yaml");
-  res.sendFile(path.join(__dirname, "docs/openapi.yml"));
-});
-app.use(
-  "/api-docs",
-  APIDocsAuth,
-  swaggerUi.serve,
-  swaggerUi.setup(swaggerDocument, {
-    swaggerOptions: {
-      url: "https://adoptme-be.vercel.app/api-docs/openapi.yml",
+const options = {
+  definition: {
+    openapi: "3.1.0",
+    info: {
+      title: "AdoptMe API",
+      version: "0.1.0",
+      description:
+        "This AdoptMe API documentation is a comprehensive guide designed to bridge the gap between frontend and backend teams. With clear and structured documentation, team members can easily understand how to interact with the API and build exciting features for our pet adoption platform.",
+      contact: {
+        name: "Fadhil Gani",
+        // url: "https://logrocket.com",
+        email: "fadhilgani2@gmail.com",
+      },
     },
-  })
-);
+    servers: [
+      {
+        url: "https://adoptme-be.vercel.app/",
+      },
+      {
+        url: "http://localhost:3000",
+      },
+    ],
+    tags: [
+      {
+        name: "animals",
+        description: "Everything about pets",
+      },
+    ],
+  },
+  apis: [path.join(__dirname, "docs/openapi.yml")],
+};
+
+const specs = swaggerJSDoc(options);
 
 app.get("/", (req, res) => {
   res.redirect("/api-docs");
 });
+app.use("/api-docs", APIDocsAuth, swaggerUi.serve, swaggerUi.setup(specs));
 
 app.use(APIAuth);
 route(app);
