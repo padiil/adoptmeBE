@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 export const getAnimals = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
-  const limit = parseInt(req.query.limit) || 10;
+  const limit = 10;
   const speciesFilter = req.query.species || null;
 
   // hitung jumlah data yang akan dilewati untuk pagination

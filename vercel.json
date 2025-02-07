@@ -6,13 +6,16 @@
       "use": "@vercel/node",
       "config": {
         "includeFiles": [
-          "dist/**",
           "docs/**"
         ]
       }
     }
   ],
   "routes": [
+    {
+      "src": "/api-docs/openapi.yml",
+      "dest": "/docs/openapi.yml"
+    },
     {
       "src": "/(.*)",
       "dest": "app.js"

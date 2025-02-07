@@ -23,17 +23,17 @@ const __dirname = path.dirname(__filename);
 
 // Dokumentasi API
 const swaggerDocument = YAML.load(path.join(__dirname, "docs/openapi.yml"));
-app.use(
-  "/api-docs/openapi.yml",
-  express.static(path.join(__dirname, "docs/openapi.yml"))
-);
+app.use("/api-docs/openapi.yml", (req, res) => {
+  res.setHeader("Content-Type", "application/x-yaml");
+  res.sendFile(path.join(__dirname, "docs/openapi.yml"));
+});
 app.use(
   "/api-docs",
   APIDocsAuth,
   swaggerUi.serve,
   swaggerUi.setup(swaggerDocument, {
     swaggerOptions: {
-      url: "/api-docs/openapi.yml",
+      url: "https://adoptme-be.vercel.app/api-docs/openapi.yml",
     },
   })
 );

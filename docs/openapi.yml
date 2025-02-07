@@ -2,6 +2,11 @@ openapi: "3.0.3"
 info:
   title: AdoptMe API
   version: "1.0"
+  description: This AdoptMe API documentation is a comprehensive guide designed to bridge the gap between frontend and backend teams. With clear and structured documentation, team members can easily understand how to interact with the API and build exciting features for our pet adoption platform.
+  contact:
+    name: Fadhil Gani
+    # url: https://yourwebsite.com
+    email: fadhilgani2@gmail.com
 servers:
   - url: https://adoptme-be.vercel.app/
   - url: http://localhost:3000
@@ -16,6 +21,12 @@ paths:
       summary: Get catalog of pets
       description: Returns a list of pets with pagination and optional species filter.
       parameters:
+        - name: x-api-key
+          in: header
+          description: API key for authorization
+          required: true
+          schema:
+            type: string
         - name: page
           in: query
           description: Page number (minimum 1)
@@ -24,24 +35,10 @@ paths:
             type: integer
             default: 1
             minimum: 1
-        - name: limit
-          in: query
-          description: Number of items per page (minimum 10)
-          required: false
-          schema:
-            type: integer
-            default: 10
-            minimum: 10
         - name: species
           in: query
           description: Filter by species name
           required: false
-          schema:
-            type: string
-        - name: x-api-key
-          in: header
-          description: API key for authorization
-          required: true
           schema:
             type: string
       responses:
@@ -146,18 +143,18 @@ paths:
       summary: Get pet by ID
       description: Returns a single pet by ID.
       parameters:
-        - name: id
-          in: path
-          description: ID of the pet to get
-          required: true
-          schema:
-            type: integer
         - name: x-api-key
           in: header
           description: API key for authorization
           required: true
           schema:
             type: string
+        - name: id
+          in: path
+          description: ID of the pet to get
+          required: true
+          schema:
+            type: integer
       responses:
         "200":
           description: A specific animal
