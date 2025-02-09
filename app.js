@@ -7,9 +7,9 @@ import path from "path";
 import { fileURLToPath } from "url";
 import YAML from "yamljs";
 
-import { route } from "./routes/index.routes.js";
-import APIAuth from "./middlewares/APIAuth.middleware.js";
-import APIDocsAuth from "./middlewares/APIDocsAuth.middleware.js";
+import { route } from "./src/routes/index.routes.js";
+import APIAuth from "./src/middlewares/APIAuth.middleware.js";
+import APIDocsAuth from "./src/middlewares/APIDocsAuth.middleware.js";
 
 const app = express();
 const port = process.env.PORT || 3000;

@@ -13,6 +13,8 @@ servers:
 tags:
   - name: pets
     description: Operations about pets
+  - name: etc
+    description: etcetera
 paths:
   /api/pets:
     get:
@@ -237,6 +239,36 @@ paths:
                   error:
                     type: string
                     example: pet not found
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Internal server error
+  /api/random-facts:
+    get:
+      tags:
+        - etc
+      summary: Get a random fact about dogs or cats
+      description: Returns a random fact about dogs or cats, translated to Indonesian.
+      responses:
+        "200":
+          description: A random fact about dogs or cats
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    example: dog
+                  fact:
+                    type: string
+                    example: "Anjing memiliki indera penciuman yang sangat tajam."
         "500":
           description: Internal server error
           content:
