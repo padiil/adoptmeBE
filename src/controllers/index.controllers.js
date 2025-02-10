@@ -121,3 +121,51 @@ export const getRandomFacts = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+export const getpetById = async (req, res) => {
+  const petId = parseInt(req.params.id);
+
+  try {
+    const pet = await prisma.pet.findUnique({
+      where: { id: petId },
+      include: {
+        species: true,
+        photos: true,
+        user: true,
+      },
+    });
+
+    if (!pet) {
+      return res.status(404).json({ error: "Pet not found" });
+    }
+
+    const petDetails = {
+      id: pet.id,
+      name: pet.name,
+      description: pet.description,
+      weight: pet.weight,
+      species: pet.species.name,
+      breed: pet.breed,
+      age: pet.age,
+      gender: pet.gender,
+      healthCondition: pet.healthCondition,
+      location: pet.location,
+      userId: pet.user.id,
+      userName: pet.user.name,
+      userPhone: pet.user.phone,
+      userEmail: pet.user.email,
+      userPhoto: pet.user.photo,
+      createdAt: pet.createdAt.toISOString(),
+      updatedAt: pet.updatedAt.toISOString(),
+      petPhotos: pet.photos.map((photo) => ({
+        id: photo.id,
+        url: photo.url,
+      })),
+    };
+
+    res.json(petDetails);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
