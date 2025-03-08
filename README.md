@@ -41,10 +41,14 @@ adoptmeBE/
 │   └── routes/
 │       └── index.routes.js
 ├── .env
+├── .env.example
 ├── .gitignore
+├── .dockerignore
+├── README.Docker.md
 ├── app.js
+├── compose.yaml
 ├── package.json
-└── vercel.json
+├── vercel.json
 ```
 
 ## Endpoints

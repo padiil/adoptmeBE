@@ -39,3 +39,9 @@ jspm_packages/
 *.bak
 *.tmp
 .vercel
+
+# Docker
+docker-compose.override.yml
+docker-entrypoint.sh
+docker-compose.yml
+*.tar
